@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient("products-repository")
+@FeignClient("product-repository")
 public interface ProductClient {
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)

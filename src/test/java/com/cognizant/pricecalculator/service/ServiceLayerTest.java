@@ -42,14 +42,32 @@ public class ServiceLayerTest {
     }
 
     @Test
+    public void testCalculateTotal() {
+        Double total = service.calculateTotal(12.50, 8.00);
+        Assert.assertEquals(Double.valueOf(20.50), total);
+    }
+
+    @Test
     public void testCreateProductViewModel() {
         Product product = new Product("1", "Prodcut test", Double.valueOf(12.50), "Test");
         Tax tax = new Tax("Test", Double.valueOf(6.25), false);
 
-        Mockito.when(taxClient.getTaxByCategory("tax")).thenReturn(tax);
+        Mockito.when(taxClient.getTaxByCategory("Test")).thenReturn(tax);
         Mockito.when(productClient.getProductById(1)).thenReturn(product);
 
 
-        //PriceViewModel pvmExpected = new PriceViewModel(1,"Prodcut test",8, Double.valueOf(12.50), Double.valueOf(6.25),Double.valueOf(6.25),Double.valueOf(106.25));
+        PriceViewModel pvmExpected = new PriceViewModel(
+                "1",
+                "Prodcut test",
+                8,
+                Double.valueOf(12.50),
+                Double.valueOf(6.25),
+                Double.valueOf(6.25),
+                Double.valueOf(106.25)
+        );
+
+        PriceViewModel actualPvm = service.createPriceViewModel(1, 8, false);
+
+        Assert.assertEquals(pvmExpected, actualPvm);
     }
 }
