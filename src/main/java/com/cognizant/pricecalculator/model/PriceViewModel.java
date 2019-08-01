@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class PriceViewModel {
 
-    private Double productid;
+    private String productid;
     private String description;
-    private Double quantity;
+    private int quantity;
 
     private Double pricePerUnit;
     private Double taxPercent;
@@ -16,7 +16,7 @@ public class PriceViewModel {
     public PriceViewModel() {
     }
 
-    public PriceViewModel(Double productid, String description, Double quantity, Double pricePerUnit, Double taxPercent, Double totalTax, Double total) {
+    public PriceViewModel(String productid, String description, int quantity, Double pricePerUnit, Double taxPercent, Double totalTax, Double total) {
         this.productid = productid;
         this.description = description;
         this.quantity = quantity;
@@ -26,11 +26,11 @@ public class PriceViewModel {
         this.total = total;
     }
 
-    public Double getProductid() {
+    public String getProductid() {
         return productid;
     }
 
-    public void setProductid(Double productid) {
+    public void setProductid(String productid) {
         this.productid = productid;
     }
 
@@ -42,11 +42,11 @@ public class PriceViewModel {
         this.description = description;
     }
 
-    public Double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

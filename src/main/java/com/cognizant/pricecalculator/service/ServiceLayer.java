@@ -24,22 +24,33 @@ public class ServiceLayer {
 
     public PriceViewModel createPriceViewModel(int productId, int quantity, Boolean taxExempt) {
 
-//        Product product = productClient.getProductById(productId);
-//
-//        Double subtotal = calculateSubTotal(product.getPricePerUnit(), quantity);
-//
-//        double taxRate = 0;
-//
-//        if(taxExempt == false) {
-//            String category = product.getCategory();
-//            Tax tax = taxClient.getTaxByCategory(category);
-//            taxRate = tax.getTaxPercent();
-//        }
-//
-//        Double totalTaxed = calculateTax(subtotal,  taxRate);
+        Product product = productClient.getProductById(productId);
 
+        Double subtotal = calculateSubTotal(product.getPricePerUnit(), quantity);
 
-        return null;
+        double taxRate = 0;
+
+        if(taxExempt == false) {
+            String category = product.getCategory();
+
+            Tax tax = taxClient.getTaxByCategory(category);
+            taxRate = tax.getTaxPercent();
+        }
+
+        Double totalTaxed = calculateTax(subtotal,  taxRate);
+
+        Double total = calculateTotal(subtotal,totalTaxed);
+
+        PriceViewModel pvm = new PriceViewModel(
+                Integer.toString(productId),
+                product.getProductDescription(),
+                quantity,
+                product.getPricePerUnit(),
+                taxRate,
+                totalTaxed,
+                total
+        );
+        return pvm;
 
     }
 
@@ -53,4 +64,7 @@ public class ServiceLayer {
         return subtotal;
     }
 
+    public Double calculateTotal(Double subtotal, Double totalTax) {
+        return totalTax + subtotal;
+    }
 }
