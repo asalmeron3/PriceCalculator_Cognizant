@@ -20,7 +20,7 @@ public class PriceController {
     public PriceViewModel getPriceInformation(
             @PathVariable int productId,
             @RequestParam(name = "quantity") int quantity,
-            @RequestParam(name ="taxExempt", required = false) Boolean taxExempt)
+            @RequestParam(name ="exemptTax", required = false) Boolean taxExempt)
     {
         Boolean removeTax = false;
 

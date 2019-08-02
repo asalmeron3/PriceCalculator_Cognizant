@@ -1,5 +1,7 @@
 package com.cognizant.pricecalculator.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class PriceViewModel {
@@ -22,8 +24,8 @@ public class PriceViewModel {
         this.quantity = quantity;
         this.pricePerUnit = pricePerUnit;
         this.taxPercent = taxPercent;
-        this.totalTax = totalTax;
-        this.total = total;
+        setTotalTax(totalTax);
+        setTotal(total);
     }
 
     public String getProductid() {
@@ -71,7 +73,10 @@ public class PriceViewModel {
     }
 
     public void setTotalTax(Double totalTax) {
-        this.totalTax = totalTax;
+
+        BigDecimal bigDecimal = new BigDecimal(totalTax).setScale(2, RoundingMode.HALF_UP);
+        double totalTax2Decimals = bigDecimal.doubleValue();
+        this.totalTax = totalTax2Decimals;
     }
 
     public Double getTotal() {
@@ -79,7 +84,10 @@ public class PriceViewModel {
     }
 
     public void setTotal(Double total) {
-        this.total = total;
+
+        BigDecimal bigDecimal = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP);
+        double totalTwoDecimals = bigDecimal.doubleValue();
+        this.total = totalTwoDecimals;
     }
 
     @Override

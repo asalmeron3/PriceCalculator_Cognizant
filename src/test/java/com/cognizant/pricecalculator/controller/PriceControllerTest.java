@@ -45,7 +45,7 @@ public class PriceControllerTest {
         Mockito.when(service.createPriceViewModel(1, 2, true)).thenReturn(pvmExemptTax);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/price/product/1?quantity=2&taxExempt=false"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/price/product/1?quantity=2&exemptTax=false"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(pvmJson));
@@ -55,7 +55,7 @@ public class PriceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(pvmJson));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/price/product/1?quantity=2&taxExempt=true"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/price/product/1?quantity=2&exemptTax=true"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(pvmExemptTaxJson));
