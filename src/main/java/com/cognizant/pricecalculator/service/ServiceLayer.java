@@ -26,19 +26,19 @@ public class ServiceLayer {
 
         Product product = productClient.getProductById(productId);
 
-        Double subtotal = calculateSubTotal(product.getPricePerUnit(), quantity);
+        String category = product.getCategory();
+        Tax tax = taxClient.getTaxByCategory(category);
 
-        double taxRate = 0;
+        double taxRate;
 
-        if(taxExempt == false) {
-            String category = product.getCategory();
-
-            Tax tax = taxClient.getTaxByCategory(category);
+        if(tax.getTaxExempt() && taxExempt) {
+            taxRate = 0.00;
+        } else {
             taxRate = tax.getTaxPercent();
         }
 
+        Double subtotal = calculateSubTotal(product.getPricePerUnit(), quantity);
         Double totalTaxed = calculateTax(subtotal,  taxRate);
-
         Double total = calculateTotal(subtotal,totalTaxed);
 
         PriceViewModel pvm = new PriceViewModel(
@@ -50,8 +50,8 @@ public class ServiceLayer {
                 totalTaxed,
                 total
         );
-        return pvm;
 
+        return pvm;
     }
 
     public Double calculateTax(double price, double tax) {
